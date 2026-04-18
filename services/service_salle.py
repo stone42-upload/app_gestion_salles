@@ -51,3 +51,15 @@ class ServiceSalle:
         self.dao_salle.delete_salle(code)
         print("La salle a été correctement supprimée")
         return True
+
+    def rechercher_salle(self, code):
+        if not code:
+            print("Erreur : le code de la salle est obligatoire pour la récuérer")
+            return False
+
+        salle = self.dao_salle.get_salle(code)
+        if not salle:
+            print("Erreur : la salle n'existe pas")
+            return None
+        else:
+            return salle
