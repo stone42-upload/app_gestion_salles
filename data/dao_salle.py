@@ -54,5 +54,14 @@ class  DataSalle:
        crs.execute("DELETE FROM salle WHERE code = %s", (code,))
        conn.commit()
 
-       print("La salle a été supprimée correctement ")
+       print("La salle a été supprimer correctement ")
        conn.close()
+
+    def get_salle(self, code):
+        conn = self.get_connect()
+        crs = conn.cursor()
+        crs.execute("SELECT * FROM salle WHERE code = %s", (code,))
+        salle = crs.fetchone()
+        conn.close()
+        return salle
+
