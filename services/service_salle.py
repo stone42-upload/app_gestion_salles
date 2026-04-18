@@ -3,6 +3,7 @@ class ServiceSalle:
     def __init__(self, dao_salle):
         self.dao_salle = dao_salle
 
+
     def ajouter_salle(self, salle):
         for donnee in (salle.code, salle.description, salle.categorie):
             if not donnee:
@@ -39,6 +40,7 @@ class ServiceSalle:
             print("Cette salle a été correctement modifiée")
             return True
 
+
     def supprimer_salle(self, code):
         if not code:
             print("Erreur : le code de la salle est obligatoire pour la supprimer")
@@ -52,6 +54,7 @@ class ServiceSalle:
         print("La salle a été correctement supprimée")
         return True
 
+
     def rechercher_salle(self, code):
         if not code:
             print("Erreur : le code de la salle est obligatoire pour la récuérer")
@@ -63,3 +66,7 @@ class ServiceSalle:
             return None
         else:
             return salle
+
+
+    def recuperer_salles(self):
+        return self.dao_salle.get_salles()
