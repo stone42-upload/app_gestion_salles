@@ -15,3 +15,24 @@ class  DataSalle:
         )
         return connexion
 
+    def insert_salle(self, salle):
+        conn = self.get_connect()
+        crs = conn.cursor()
+        crs.execute("""
+        CREATE TABLE IF NOT EXISTS salle (
+            code VARCHAR(5) PRIMARY KEY,
+            description VARCHAR(50),
+            categorie VARCHAR(50),
+            capacite INT
+            )"""
+        )
+        conn.commit()
+
+        crs.execute("INSERT INTO salle (code, description, categorie, capacite)" 
+                    "VALUES (%s, %s, %s, %s)",
+                    (salle.code, salle.description, salle.categorie, salle.capacite))
+        conn.commit()
+
+        print("Cette salle a été insérer correctement")
+        conn.close()
+
