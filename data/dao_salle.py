@@ -36,3 +36,14 @@ class  DataSalle:
         print("Cette salle a été insérer correctement")
         conn.close()
 
+    def update_salle(self, salle):
+        conn = self.get_connect()
+        crs = conn.cursor()
+        crs.execute("""
+            UPDATE salle
+            SET  description = %s, categorie = %s, capacite = %s
+            WHERE code = %s
+        """, (salle.description, salle.categorie, salle.capacite, salle.code))
+
+        conn.commit()
+        conn.close()
