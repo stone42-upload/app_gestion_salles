@@ -57,12 +57,6 @@ class ViewSalle(ctk.CTk):
         categorie = self.entry_categorie.get()
         capacite = self.entry_capacite.get()
 
-        try:
-            capacite = int(capacite)
-        except ValueError:
-            print("Erreur : la capacité doit être un nombre entier")
-            return
-
         salle = Salle(code, description, categorie, capacite)
         resultat = self.service_salle.ajouter_salle(salle)
         if resultat:
@@ -76,12 +70,6 @@ class ViewSalle(ctk.CTk):
         description = self.entry_description.get()
         categorie = self.entry_categorie.get()
         capacite = self.entry_capacite.get()
-
-        try:
-            capacite = int(capacite)
-        except ValueError:
-            print("Erreur : la capacité doit être un nombre entier")
-            return
 
         salle = Salle(code, description, categorie, capacite)
         resultat = self.service_salle.modifier_salle(salle)
@@ -101,11 +89,11 @@ class ViewSalle(ctk.CTk):
         else:
             print("Impossible de supprimer la salle")
 
-    def recuperer_salle(self):
+    def rechercher_salle(self):
         code = self.entry_code.get()
 
-        salle = self.service_salle.recuperer_salle(code)
-        if salle is None:
+        salle = self.service_salle.rechercher_salle(code)
+        if not salle :
             print("Aucune salle trouvée avec ce code.")
             return
 

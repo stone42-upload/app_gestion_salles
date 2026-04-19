@@ -16,12 +16,19 @@ class ServiceSalle:
             print("Erreur : capacité manquante.")
             return False
 
-        if salle.capacite < 1:
-            print("Désolé une salle dont la capacité est inférieur à 1 ne peut pas être ajouter")
+        try:
+            salle.capacite = int(salle.capacite)
+        except ValueError:
+            print("Erreur : la capacité doit être un nombre entier")
+            return
         else:
-            self.dao_salle.insert_salle(salle)
-            print("Cette salle a été correctement ajouter")
-            return True
+            if salle.capacite < 1:
+                print("Désolé une salle dont la capacité est inférieur à 1 ne peut pas être ajouter")
+                return False
+            else:
+                self.dao_salle.insert_salle(salle)
+                print("Cette salle a été correctement ajouter")
+                return True
 
 
     def modifier_salle(self, salle):
@@ -39,13 +46,19 @@ class ServiceSalle:
             print("Erreur : capacité manquante.")
             return False
 
-        if salle.capacite < 1:
-            print("capacité doit être supérieure ou égale à 1 pour modifier cette salle avec ces valeurs")
-            return False
+        try:
+            salle.capacite = int(salle.capacite)
+        except ValueError:
+            print("Erreur : la capacité doit être un nombre entier")
+            return
         else:
-            self.dao_salle.update_salle(salle)
-            print("Cette salle a été correctement modifiée")
-            return True
+            if salle.capacite < 1:
+                print("capacité doit être supérieure ou égale à 1 pour modifier cette salle avec ces valeurs")
+                return False
+            else:
+                self.dao_salle.update_salle(salle)
+                print("Cette salle a été correctement modifiée")
+                return True
 
 
     def supprimer_salle(self, code):
