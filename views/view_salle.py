@@ -45,6 +45,7 @@ class ViewSalle(ctk.CTk):
         self.btn_ajouter.configure(command=self.ajouter_salle)
         self.btn_modifier.configure(command=self.modifier_salle)
         self.btn_supprimer.configure(command=self.supprimer_salle)
+        self.btn_rechercher.configure(command=self.rechercher_salle)
 
         for i in range(4):
             self.frame_actions.grid_columnconfigure(i, weight=1)
@@ -99,3 +100,23 @@ class ViewSalle(ctk.CTk):
             print("La salle a supprimer avec succes")
         else:
             print("Impossible de supprimer la salle")
+
+    def recuperer_salle(self):
+        code = self.entry_code.get()
+
+        salle = self.service_salle.recuperer_salle(code)
+        if salle is None:
+            print("Aucune salle trouvée avec ce code.")
+            return
+
+        self.entry_description.delete(0, "end")
+        self.entry_description.insert(0, salle.description)
+
+        self.entry_categorie.delete(0, "end")
+        self.entry_categorie.insert(0, salle.categorie)
+
+        self.entry_capacite.delete(0, "end")
+        self.entry_capacite.insert(0, salle.capacite)
+
+        print("Salle trouvée et affichée")
+
