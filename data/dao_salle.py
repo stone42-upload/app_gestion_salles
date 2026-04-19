@@ -1,6 +1,9 @@
 import json
 import mysql.connector
 
+from models.salle import Salle
+
+
 class  DataSalle:
 
     def get_connect(self):
@@ -69,7 +72,12 @@ class  DataSalle:
         conn = self.get_connect()
         crs = conn.cursor()
         crs.execute("SELECT * FROM salle")
-        salles = crs.fetchall()
+        rows = crs.fetchall()
+        salles = []
+        for row in rows:
+            code, description, categorie, capacite = row
+            salles.append(Salle(code, description, categorie, capacite))
+
         conn.close()
         return salles
 

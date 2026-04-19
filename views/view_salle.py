@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from models.salle import Salle
+from tkinter import ttk
 
 class ViewSalle(ctk.CTk):
     def __init__(self, service_salle):
@@ -50,6 +51,25 @@ class ViewSalle(ctk.CTk):
         for i in range(4):
             self.frame_actions.grid_columnconfigure(i, weight=1)
 
+        self.cadreList = ctk.CTkFrame(self, corner_radius=10, width=400)
+        self.cadreList.pack(pady=10, padx=10)
+        self.treeList = ttk.Treeview(
+            self.cadreList,
+            columns=("code", "description", "categorie", "capacite"),
+            show="headings"
+        )
+
+        self.treeList.heading("code", text="CODE")
+        self.treeList.heading("description", text="Description")
+        self.treeList.heading("categorie", text="Catégorie")
+        self.treeList.heading("capacite", text="Capacité")
+
+        self.treeList.column("code", width=50)
+        self.treeList.column("description", width=150)
+        self.treeList.column("categorie", width=100)
+        self.treeList.column("capacite", width=100)
+        self.treeList.pack(expand=True, fill="both", padx=10, pady=10)
+        self.lister_salles()
 
     def ajouter_salle(self):
         code = self.entry_code.get()
@@ -60,9 +80,8 @@ class ViewSalle(ctk.CTk):
         salle = Salle(code, description, categorie, capacite)
         resultat = self.service_salle.ajouter_salle(salle)
         if resultat:
-            print("La salle a été ajoutée avec succès")
-        else:
-            print("La salle n'a pas été ajouter")
+            self.lister_salles()
+
 
 
     def modifier_salle(self):
@@ -75,9 +94,8 @@ class ViewSalle(ctk.CTk):
         resultat = self.service_salle.modifier_salle(salle)
 
         if resultat:
-            print("La salle a été modifier avec succes")
-        else:
-            print("La modification de la salle a échouer")
+            self.lister_salles()
+
 
 
     def supprimer_salle(self):
@@ -85,9 +103,8 @@ class ViewSalle(ctk.CTk):
 
         resultat = self.service_salle.supprimer_salle(code)
         if resultat:
-            print("La salle a supprimer avec succes")
-        else:
-            print("Impossible de supprimer la salle")
+            self.lister_salles()
+
 
     def rechercher_salle(self):
         code = self.entry_code.get()
@@ -107,4 +124,5 @@ class ViewSalle(ctk.CTk):
         self.entry_capacite.insert(0, salle.capacite)
 
         print("Salle trouvée et affichée")
+
 
