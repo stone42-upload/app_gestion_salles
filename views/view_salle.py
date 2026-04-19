@@ -26,3 +26,21 @@ class ViewSalle(ctk.CTk):
             entry = ctk.CTkEntry(self.frame_info)
             entry.grid(row=i, column=1, padx=10, pady=5)
             setattr(self, entry_attr, entry)
+
+        self.frame_actions = ctk.CTkFrame(self)
+        self.frame_actions.pack(pady=10)
+
+        boutons = [
+            ("Ajouter", "btn_ajouter"),
+            ("Modifier", "btn_modifier"),
+            ("Supprimer", "btn_supprimer"),
+            ("Rechercher", "btn_rechercher")
+        ]
+
+        for col, (text, attr_name) in enumerate(boutons):
+            btn = ctk.CTkButton(self.frame_actions, text=text)
+            btn.grid(row=col, column=col, padx=10, pady=5)
+            setattr(self, attr_name, btn)
+
+        for i in range(4):
+            self.frame_actions.grid_columnconfigure(i, weight=1)
