@@ -43,9 +43,10 @@ class ViewSalle(ctk.CTk):
             btn.grid(row=0, column=col, padx=10, pady=5)
             setattr(self, attr_name, btn)
         self.btn_ajouter.configure(command=self.ajouter_salle)
-
+        self.btn_modifier.configure(command=self.modifier_salle)
         for i in range(4):
             self.frame_actions.grid_columnconfigure(i, weight=1)
+
 
     def ajouter_salle(self):
         code = self.entry_code.get()
@@ -65,3 +66,24 @@ class ViewSalle(ctk.CTk):
             print("La salle a été ajoutée avec succès")
         else:
             print("La salle n'a pas été ajouter")
+
+
+    def modifier_salle(self):
+        code = self.entry_code.get()
+        description = self.entry_description.get()
+        categorie = self.entry_categorie.get()
+        capacite = self.entry_capacite.get()
+
+        try:
+            capacite = int(capacite)
+        except ValueError:
+            print("Erreur : la capacité doit être un nombre entier")
+            return
+
+        salle = Salle(code, description, categorie, capacite)
+        resultat = self.service_salle.modifier_salle(salle)
+
+        if resultat:
+            print("La salle a été modifier avec succes")
+        else:
+            print("La modification de la salle a échouer")
