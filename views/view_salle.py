@@ -44,6 +44,8 @@ class ViewSalle(ctk.CTk):
             setattr(self, attr_name, btn)
         self.btn_ajouter.configure(command=self.ajouter_salle)
         self.btn_modifier.configure(command=self.modifier_salle)
+        self.btn_supprimer.configure(command=self.supprimer_salle)
+
         for i in range(4):
             self.frame_actions.grid_columnconfigure(i, weight=1)
 
@@ -87,3 +89,13 @@ class ViewSalle(ctk.CTk):
             print("La salle a été modifier avec succes")
         else:
             print("La modification de la salle a échouer")
+
+
+    def supprimer_salle(self):
+        code = self.entry_code.get()
+
+        resultat = self.service_salle.supprimer_salle(code)
+        if resultat:
+            print("La salle a supprimer avec succes")
+        else:
+            print("Impossible de supprimer la salle")
