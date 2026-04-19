@@ -9,7 +9,7 @@ class ViewSalle(ctk.CTk):
         self.service_salle = service_salle
 
         self.title("Gestion des Salles")
-        self.geometry("600x400")
+        self.geometry("350x450")
 
         self.frame_info = ctk.CTkFrame(self)
         self.frame_info.pack(pady=20 ,padx=20, fill="x")
