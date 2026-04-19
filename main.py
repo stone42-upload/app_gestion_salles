@@ -1,30 +1,17 @@
-from data.dao_salle import DataSalle
 from models.salle import Salle
-
+from services.service_salle import ServiceSalle
+from data.dao_salle import DataSalle
 dao = DataSalle()
-# Test de la connection à la base de données
-conn = dao.get_connect()
+service = ServiceSalle(dao)
 
-s1 = Salle("A101", "Salle informatique", "Informatique", 30)
-s2 = Salle("B302", "Salle de conférence", "Réunion", 500)
-# Ajout d'une salle à la base de donnée
-dao.insert_salle(s1)
-dao.insert_salle(s2)
-# Suppression d'une salle dans la base de donnée
-dao.delete_salle("B302")
+print(service.recuperer_salles())
 
-# Modification de la salle ("A101")
-s1.description = "Salle de cours"
-dao.update_salle(s1)
+s3 = Salle("D154", "Salle de cours première année", "Cours",80)
+service.ajouter_salle(s3)
 
-#Recherche d'une salle par son code
-dao.get_salle("B302")
-# Récupération et affichage de toutes les salles
-print(dao.get_salles())
+s3.capacite=70
+service.modifier_salle(s3)
 
+service.supprimer_salle("D154")
 
-
-
-
-
-
+print(service.rechercher_salle("A101"))

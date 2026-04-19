@@ -1,3 +1,5 @@
+import code
+
 from data.dao_salle import DataSalle
 class ServiceSalle:
     def __init__(self, dao_salle):
@@ -23,6 +25,11 @@ class ServiceSalle:
 
 
     def modifier_salle(self, salle):
+        salles = self.dao_salle.get_salle(salle.code)
+        if not salles:
+            print("Erreur : la salle n'existe pas donc vous ne pouvez pas la modifier")
+            return False
+
         for donnee in (salle.code, salle.description, salle.categorie):
             if not donnee:
                 print("Erreur: une donnée obligatoire est manquante." )
